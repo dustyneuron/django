@@ -1,2 +1,4 @@
-usr/
+usr/bin/
+usr/lib/python3/
+usr/share/
 extras/django_bash_completion etc/bash_completion.d/
