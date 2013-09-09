@@ -35,14 +35,8 @@ override_dh_auto_build:
 	#make -C docs.debian html
 
 override_dh_auto_test:
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	touch tests/__init__.py
-	mkdir -p tmp-locales
-	localedef -i /usr/share/i18n/locales/en_US -c -f UTF-8 -A /usr/share/locale/locale.alias tmp-locales/en_US.UTF-8
-	LOCPATH=$(CURDIR)/tmp-locales LC_ALL=en_US.UTF-8 PYTHONPATH=. tests/runtests.py --settings=tests.test_sqlite --verbosity=2
-	rm -rf tmp-locales
-endif
-
+	true
+	
 override_dh_clean:
 	# backup~ is used in tests
 	dh_clean -Xbackup~
