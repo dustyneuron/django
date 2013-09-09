@@ -1,4 +1,4 @@
-Source: python-django
+Source: python3-django
 Section: python
 Priority: optional
 Maintainer: Chris Lamb <lamby@debian.org>
@@ -6,17 +6,16 @@ Uploaders: Debian Python Modules Team <python-modules-team@lists.alioth.debian.o
  Raphaël Hertzog <hertzog@debian.org>,
  Luke Faraone <lfaraone@debian.org>
 Standards-Version: 3.9.3
-Build-Depends: debhelper (>= 7.0.50), python (>= 2.6.6-3~), python-sphinx (>= 1.0.8), locales (>= 0)
+Build-Depends: debhelper (>= 7.0.50), python3-all-dev, python3-sphinx, locales (>= 0)
 Build-Depends-Indep: libjs-jquery
+X-Python3-Version: >= 3.3
 Homepage: http://www.djangoproject.com/
-Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/python-django/trunk/
-Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/python-django/trunk/
 
-Package: python-django
+Package: python3-django
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}
+Depends: ${misc:Depends}, ${python3:Depends}
 Recommends: libjs-jquery
-Suggests: python-psycopg2, python-psycopg, python-mysqldb, python-flup, python-sqlite, python-yaml, geoip-database-contrib, gettext
+Suggests: python3-psycopg2, python3-psycopg, python3-mysqldb, python3-flup, python3-sqlite, python3-yaml, geoip-database-contrib, gettext
 Description: High-level Python web development framework
  Django is a high-level web application framework that loosely follows the
  model-view-controller design pattern.
@@ -38,21 +37,3 @@ Description: High-level Python web development framework
   * Lightweight, standalone web server for development and testing
   * Internationalization support
   * Testing framework and client
-
-Package: python-django-doc
-Section: doc
-Architecture: all
-Depends: ${misc:Depends}, ${sphinxdoc:Depends}
-Description: High-level Python web development framework (documentation)
- Django is a high-level web application framework that loosely follows the
- model-view-controller design pattern.
- .
- Python's equivalent to Ruby on Rails, Django lets you build complex
- data-driven websites quickly and easily - Django focuses on automating as much
- as possible and adhering to the "Don't Repeat Yourself" (DRY) principle.
- .
- Django additionally emphasizes reusability and "pluggability" of components;
- many generic third-party "applications" are available to enhance projects or
- to simply to reduce development time even further.
- .
- This package contains the HTML documentation and example projects.
