@@ -6,7 +6,7 @@ PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
 
 -include /usr/share/python3/python.mk
 
-PREFIX = debian/tmp
+PREFIX = debian/python3-django
 
 %:
 	dh $@ --with sphinxdoc,python3
@@ -37,8 +37,9 @@ override_dh_clean:
 
 override_dh_install:
 	set -ex; for python in $(PYTHON3); do \
-	  $$python setup.py install --install-layout=deb --root=$(PREFIX); \
+	  $$python setup.py install --install-layout=deb --root=debian/tmp; \
 	done
+	dh_install
 	
 	# Use default shebang and m move scripts to /usr/lib/python3-django
 	set -e; for ver in $(shell py3versions -vr); do \
