@@ -39,9 +39,10 @@ override_dh_install:
 	set -ex; for python in $(PYTHON3); do \
 	  $$python setup.py install --install-layout=deb --root=debian/tmp; \
 	done
+	rm -rf debian/python3-django/usr/lib/python2.7
 	mkdir -p debian/tmp/etc/bash_completion.d/
 	cp extras/django_bash_completion debian/tmp/etc/bash_completion.d/
-	dh_install --sourcedir=debian/tmp -Xpython2.7
+	dh_install --sourcedir=debian/tmp
 	
 	# Use default shebang and m move scripts to /usr/lib/python3-django
 	set -e; for ver in $(shell py3versions -vr); do \
