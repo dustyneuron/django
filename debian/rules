@@ -5,12 +5,6 @@ PY3DEFAULT := $(shell py3versions -d)
 PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
 
 -include /usr/share/python3/python.mk
-ifeq (,$(py_sitename))
-  py_sitename = site-packages
-  py_libdir = /usr/lib/python3/site-packages
-  py_sitename_sh = $(py_sitename)
-  py_libdir_sh = $(py_libdir)
-endif
 
 PREFIX = debian/tmp
 
@@ -49,16 +43,16 @@ override_dh_install:
 	# Use default shebang and m move scripts to /usr/lib/python3-django
 	set -e; for ver in $(shell py3versions -vr); do \
 		[ -f /usr/bix/python$$ver ] || continue;\
-		FILE=$(PREFIX)/$(call py_libdir_sh,$$ver)/django/conf/project_template/manage.py; \
+		FILE=$(PREFIX)/usr/lib/python3/dist-packages/django/conf/project_template/manage.py; \
 		if [ -f $$FILE ]; then\
 			perl -pi -e 's|^#!/usr/bin/env python.*|#!/usr/bin/python|' $$FILE;\
 			chmod +x $$FILE;\
 		fi;\
 		if [ -d $(PREFIX)/usr/lib/python3-django ]; then\
-			rm -rf $(PREFIX)/$(call py_libdir_sh,$$ver)/django/bin;\
+			rm -rf $(PREFIX)/usr/lib/python3/dist-packages/django/bin;\
 		else\
 			mkdir -p $(PREFIX)/usr/lib/python3-django;\
-			mv $(PREFIX)/$(call py_libdir_sh,$$ver)/django/bin $(PREFIX)/usr/lib/python3-django;\
+			mv $(PREFIX)/usr/lib/python3/dist-packages/django/bin $(PREFIX)/usr/lib/python3-django;\
 		fi;\
 	done
 	# Fix permissions
