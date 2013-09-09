@@ -1,18 +1,18 @@
 #!/usr/bin/make -f
 
+PY3REQUESTED := $(shell py3versions -r)
+PY3DEFAULT := $(shell py3versions -d)
+PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
+
 -include /usr/share/python3/python.mk
 ifeq (,$(py_sitename))
   py_sitename = site-packages
-  py_libdir = /usr/lib/python$(subst python,,$(1))/site-packages
+  py_libdir = /usr/lib/python$(PY3REQUESTED)/site-packages
   py_sitename_sh = $(py_sitename)
   py_libdir_sh = $(py_libdir)
 endif
 
-
-PREFIX = debian/python3-django
-PY3REQUESTED := $(shell py3versions -r)
-PY3DEFAULT := $(shell py3versions -d)
-PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
+PREFIX = debian/tmp
 
 %:
 	dh $@ --with sphinxdoc,python3
