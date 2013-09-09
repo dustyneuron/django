@@ -43,7 +43,7 @@ override_dh_clean:
 
 override_dh_install:
 	set -ex; for python in $(PYTHON3); do \
-	  $$python setup.py install --install-layout=deb --root=debian/tmp; \
+	  $$python setup.py install --install-layout=deb --root=$(PREFIX); \
 	done
 	
 	# Use default shebang and m move scripts to /usr/lib/python3-django
