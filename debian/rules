@@ -37,9 +37,9 @@ override_dh_clean:
 
 override_dh_install:
 	set -ex; for python in $(PYTHON3); do \
-	  $$python setup.py install --install-layout=deb --root=debian/tmp; \
+	  $$python setup.py install --install-layout=deb --root=$(PREFIX); \
 	done
-	dh_install
+	cp -r extras/django_bash_completion $(PREFIX)/etc/bash_completion.d/
 	
 	# Use default shebang and m move scripts to /usr/lib/python3-django
 	set -e; for ver in $(shell py3versions -vr); do \
@@ -57,7 +57,7 @@ override_dh_install:
 		fi;\
 	done
 	# Fix permissions
-	chmod -f 644 $(PREFIX)/etc/bash_completion.d/django_bash_completion
+	chmod 644 $(PREFIX)/etc/bash_completion.d/django_bash_completion
 	find $(PREFIX)/usr/lib/python3-django/bin/ -name '*.py' -not -name '__init__.py' -print0 | xargs -0r chmod 755
 	
 	# Rename django-admin.py to django-admin
