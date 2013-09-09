@@ -39,7 +39,8 @@ override_dh_install:
 	set -ex; for python in $(PYTHON3); do \
 	  $$python setup.py install --install-layout=deb --root=$(PREFIX); \
 	done
-	cp -r extras/django_bash_completion $(PREFIX)/etc/bash_completion.d/
+	mkdir -p $(PREFIX)/etc/bash_completion.d/
+	cp extras/django_bash_completion $(PREFIX)/etc/bash_completion.d/
 	
 	# Use default shebang and m move scripts to /usr/lib/python3-django
 	set -e; for ver in $(shell py3versions -vr); do \
