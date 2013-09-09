@@ -12,7 +12,7 @@ ifeq (,$(py_sitename))
   py_libdir_sh = $(py_libdir)
 endif
 
-PREFIX = debian/tmp
+PREFIX = debian/python3-django
 
 %:
 	dh $@ --with sphinxdoc,python3
@@ -42,6 +42,7 @@ override_dh_clean:
 	dh_clean -Xbackup~
 
 override_dh_install:
+	dh_install
 	set -ex; for python in $(PYTHON3); do \
 	  $$python setup.py install --install-layout=deb --root=$(PREFIX); \
 	done
