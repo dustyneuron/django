@@ -7,7 +7,7 @@ PYTHON3 := $(filter-out $(PY3DEFAULT),$(PY3REQUESTED)) python3
 -include /usr/share/python3/python.mk
 ifeq (,$(py_sitename))
   py_sitename = site-packages
-  py_libdir = /usr/lib/python$(PY3REQUESTED)/site-packages
+  py_libdir = /usr/lib/$(PY3REQUESTED)/site-packages
   py_sitename_sh = $(py_sitename)
   py_libdir_sh = $(py_libdir)
 endif
@@ -27,6 +27,7 @@ override_dh_auto_build:
 	set -ex; for python in $(PYTHON3); do \
 	  $$python setup.py build; \
 	done
+	dh_auto_build
 	# Build the HTML documentation.
 	# We programmatically replace most instances of django-admin.py with
 	# django-admin and remove the source files from the target _build.
@@ -42,10 +43,10 @@ override_dh_clean:
 	dh_clean -Xbackup~
 
 override_dh_install:
-	dh_install
 	set -ex; for python in $(PYTHON3); do \
 	  $$python setup.py install --install-layout=deb --root=$(PREFIX); \
 	done
+	dh_install
 	
 	# Use default shebang and m move scripts to /usr/lib/python3-django
 	set -e; for ver in $(shell py3versions -vr); do \
